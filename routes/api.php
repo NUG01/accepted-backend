@@ -24,4 +24,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register')->middleware('guest')->name('user.register');
     // Route::post('email/verify', 'verifyEmail')->name('user.verify');
     Route::post('email/verify', 'verifyEmail')->middleware(['guest', 'not.verified'])->name('user.verify');
+    Route::post('forgot-password', 'sendPasswordResetEmail')->name('user.forgot.password');
 });

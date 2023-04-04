@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\user;
 
 use App\Enums\UserRoleEnum;
+use App\Events\UserPasswordForgot;
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\user\PasswordForgotRequest;
 use App\Http\Requests\user\RegisterRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
@@ -59,6 +61,15 @@ class AuthController extends Controller
         }
 
         return response()->json('დაფიქსირდა შეცდომა', 400);
+    }
+
+    public function sendPasswordResetEmail(PasswordForgotRequest $request)
+    {
+
+        $user = User::where('email', strtolower($request->email))->first();
+
+        event(new UserPasswordForgot($user));
+        return response()->noContent(200);
     }
 
 
