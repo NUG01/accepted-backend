@@ -21,8 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('register', 'register')->middleware('guest')->name('user.register');
-    // Route::post('email/verify', 'verifyEmail')->name('user.verify');
+    Route::middleware(['guest'])->group(function () {
+        Route::post('register', 'register')->name('user.register');
+        Route::post('forgot-password', 'sendPasswordResetEmail')->name('user.forgot.password');
+        Route::post('recover-password', 'recoverPassword')->name('user.recover.password');
+        Route::post('password-recover-validity', 'passwordResetValidity')->name('user.recover.check');
+    });
     Route::post('email/verify', 'verifyEmail')->middleware(['guest', 'not.verified'])->name('user.verify');
-    Route::post('forgot-password', 'sendPasswordResetEmail')->name('user.forgot.password');
 });

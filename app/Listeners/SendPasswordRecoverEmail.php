@@ -28,7 +28,7 @@ class SendPasswordRecoverEmail
 
 
         $token = Str::random(45);
-        $passwordReset =  DB::table('password_reset_tokens')->insert(
+        DB::table('password_reset_tokens')->insert(
             [
                 'email' => $event->data['email'],
                 'token' => $token,

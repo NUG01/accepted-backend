@@ -7,11 +7,13 @@ use App\Events\UserPasswordForgot;
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\PasswordForgotRequest;
+use App\Http\Requests\user\PasswordRecoverRequest;
 use App\Http\Requests\user\RegisterRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -39,6 +41,8 @@ class AuthController extends Controller
         return response()->noContent();
     }
 
+
+
     public function verifyEmail(Request $request)
     {
         $user = User::where('verification_code', $request->code)->first();
@@ -63,12 +67,38 @@ class AuthController extends Controller
         return response()->json('დაფიქსირდა შეცდომა', 400);
     }
 
+
+
     public function sendPasswordResetEmail(PasswordForgotRequest $request)
     {
 
         $user = User::where('email', strtolower($request->email))->first();
 
         event(new UserPasswordForgot($user));
+        return response()->noContent(200);
+    }
+
+
+
+    public function recoverPassword(PasswordRecoverRequest $request)
+    {
+
+        $passwordColumn = DB::table('password_reset_tokens')->where('token', $request->token);
+
+        User::where('email', $passwordColumn->first()->email)->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        $passwordColumn->delete();
+        return response()->noContent(200);
+    }
+    public function passwordResetValidity(Request $request)
+    {
+
+        $passwordColumn = DB::table('password_reset_tokens')->where('token', $request->token)->first();
+
+        if (!$passwordColumn) return response()->noContent(400);
+
         return response()->noContent(200);
     }
 
