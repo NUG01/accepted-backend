@@ -7,4 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+  public function user(Request $request)
+  {
+    return response()->json(['user' => $request->user()]);
+  }
 }

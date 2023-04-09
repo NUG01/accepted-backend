@@ -6,10 +6,10 @@ use App\Enums\UserRoleEnum;
 use App\Events\UserPasswordForgot;
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\user\LoginRequest;
 use App\Http\Requests\user\PasswordForgotRequest;
 use App\Http\Requests\user\PasswordRecoverRequest;
 use App\Http\Requests\user\RegisterRequest;
-use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -17,6 +17,44 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+
+    public function login(LoginRequest $request)
+    {
+
+
+        $userVerified = User::where('email', $request->email)->value('email_verified_at');
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password]) && $userVerified != null) {
+
+            $request->session()->regenerate();
+
+            return response()->json(['user' => Auth::user()]);
+        }
+
+        if (Auth::user() &&  Auth::user()->email_verified_at == null) {
+
+            return response()->json([
+                'error' => 'მომხმარებელი არაა ვერიფიცირებული!',
+            ], 401);
+        }
+
+
+
+        return response()->json([
+            'error' => 'მოცემული მონაცემებით მომხმარებელი არ არსებობს!',
+        ], 401);
+    }
+
+    public function logout()
+    {
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return response()->json(['message' => 'Logged Out']);
+    }
+
+
+
+
     public function register(RegisterRequest $request)
     {
 
