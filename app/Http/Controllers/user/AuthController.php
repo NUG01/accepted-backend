@@ -6,6 +6,7 @@ use App\Enums\UserRoleEnum;
 use App\Events\UserPasswordForgot;
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\user\EmailVerifyRequest;
 use App\Http\Requests\user\LoginRequest;
 use App\Http\Requests\user\PasswordForgotRequest;
 use App\Http\Requests\user\PasswordRecoverRequest;
@@ -33,23 +34,22 @@ class AuthController extends Controller
         if (Auth::user() &&  Auth::user()->email_verified_at == null) {
 
             return response()->json([
-                'error' => 'მომხმარებელი არაა ვერიფიცირებული!',
+                'error' => __('messages.not_verified'),
             ], 401);
         }
 
 
 
         return response()->json([
-            'error' => 'მოცემული მონაცემებით მომხმარებელი არ არსებობს!',
+            'error' => __('messages.user_doesnt_exist'),
         ], 401);
     }
 
     public function logout()
     {
-
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return response()->json(['message' => 'Logged Out']);
+        return response()->noContent();
     }
 
 
@@ -70,7 +70,7 @@ class AuthController extends Controller
         ]);
 
         if (!$registeredUser) {
-            return response()->noContent()->setStatusCode(400);
+            return response()->noContent(400);
         }
 
 
@@ -81,7 +81,7 @@ class AuthController extends Controller
 
 
 
-    public function verifyEmail(Request $request)
+    public function verifyEmail(EmailVerifyRequest $request)
     {
         $user = User::where('verification_code', $request->code)->first();
 
@@ -99,10 +99,10 @@ class AuthController extends Controller
         }
 
         if ($user && $user->email_verified_at) {
-            return response()->json('მეილი უკვე ვერიფიცირებულია!', 400);
+            return response()->json(['error' => __('messages.mail_already_verified')], 400);
         }
 
-        return response()->json('დაფიქსირდა შეცდომა', 400);
+        return response()->json(['error' => __('messages.error_occurred')], 400);
     }
 
 
@@ -113,7 +113,7 @@ class AuthController extends Controller
         $user = User::where('email', strtolower($request->email))->first();
 
         event(new UserPasswordForgot($user));
-        return response()->noContent(200);
+        return response()->noContent();
     }
 
 
@@ -130,14 +130,14 @@ class AuthController extends Controller
         $passwordColumn->delete();
         return response()->noContent(200);
     }
-    public function passwordResetValidity(Request $request)
+    public function passwordResetValidity(PasswordRecoverRequest $request)
     {
 
         $passwordColumn = DB::table('password_reset_tokens')->where('token', $request->token)->first();
 
         if (!$passwordColumn) return response()->noContent(400);
 
-        return response()->noContent(200);
+        return response()->noContent();
     }
 
 

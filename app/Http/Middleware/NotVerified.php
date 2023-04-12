@@ -19,7 +19,7 @@ class NotVerified
 
         $user = User::where('verification_code', $request->code)->first();
         if (!$user || $user->hasVerifiedEmail()) {
-            return response()->json('მომხმარებლის ვერიფიკაცია ვერ მოხერხდა!', 400);
+            return response()->json(['error' => 'მომხმარებლის ვერიფიკაცია ვერ მოხერხდა!'], 400);
         }
         return $next($request);
     }

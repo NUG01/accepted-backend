@@ -25,15 +25,4 @@ class PasswordForgotRequest extends FormRequest
             'email' => ['email', 'required', 'exists:users,email']
         ];
     }
-
-
-    public function messages()
-    {
-        return  [
-            'email.required' => 'ელ.ფოსტა არის აუცილებელი!',
-            'email.email' => 'ელ.ფოსტა აუცილებელია იყოს მეილის ფორმატში!',
-            'email.exists' => 'ელ.ფოსტა არ არსებობს!',
-
-        ];
-    }
 }

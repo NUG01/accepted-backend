@@ -23,7 +23,7 @@ class PasswordRecoverRequest extends FormRequest
     {
         return [
             'token' => ['string', 'required', 'min:45', 'max:45'],
-            'password' => ['string', 'required', 'min:8']
+            'password' => ['string', 'sometimes', 'min:8']
         ];
     }
 }
