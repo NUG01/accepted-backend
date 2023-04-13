@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('test_types_id');
+            $table->foreignId('test_type_id');
             $table->string('type');
             $table->string('category');
             $table->integer('number');

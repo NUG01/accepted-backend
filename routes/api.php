@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\UserController;
 use Illuminate\Http\Request;
@@ -19,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UserController::class)->group(function () {
     Route::get('user', 'user')->middleware(['auth:sanctum'])->name('user');
+});
+
+Route::controller(TestController::class)->group(function () {
+    Route::get('tests/{type:id}', 'index')->name('test.index');
+});
+Route::controller(TestTypeController::class)->group(function () {
+    Route::get('test-types', 'index')->name('test.type.index');
 });
 
 
