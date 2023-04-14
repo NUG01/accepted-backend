@@ -19,7 +19,8 @@ class Test extends Model
 
     protected $casts = [
         'conditions' => 'array',
-        'asnwers' => 'array'
+        'asnwers' => 'array',
+        'extra' => 'array'
     ];
 
 

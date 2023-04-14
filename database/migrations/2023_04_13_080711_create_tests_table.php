@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('question')->nullable();
             $table->json('answers');
             $table->string('correct');
+            $table->json('extra')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

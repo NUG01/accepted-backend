@@ -23,8 +23,9 @@ class TestResource extends JsonResource
             'introduction' => $this->introduction,
             'conditions' => $this->conditions,
             'question' => $this->question,
-            'answers' => $this->answers,
+            'answers' => json_decode($this->answers),
             'correct' => $this->correct,
+            'extra' => $this->extra,
             'image' => $this->image,
         ];
     }
