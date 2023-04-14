@@ -19,6 +19,10 @@ class TestType extends Model
     {
         return $this->HasMany(Test::class);
     }
+    public function texts(): HasMany
+    {
+        return $this->HasMany(Text::class);
+    }
 
     // public function answers(): Attribute
     // {

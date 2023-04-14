@@ -11,7 +11,6 @@ class TestController extends Controller
 {
     public function index(TestType $type)
     {
-        return $type->tests;
 
         return TestResource::collection($type->tests);
     }
