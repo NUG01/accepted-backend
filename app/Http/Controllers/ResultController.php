@@ -9,17 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
+
+    public function index(Result $result)
+    {
+
+        return response()->json($result);
+    }
     public function store(ResultRequest $request)
     {
-        Result::create([
+        $result = Result::create([
 
             'user_id' => Auth::user()->id,
             'test_type_id' => $request->test_type_id,
             'score' => $request->score,
+            'max' => $request->max,
             'incorrect' => $request->incorrect,
         ]);
 
 
-        return response()->json($request);
+        return response()->json($result);
     }
 }

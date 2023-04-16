@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('test_type_id');
             $table->integer('score');
+            $table->integer('max');
             $table->json('incorrect');
             $table->timestamps();
         });

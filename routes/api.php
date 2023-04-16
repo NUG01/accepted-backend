@@ -31,6 +31,7 @@ Route::controller(TestTypeController::class)->group(function () {
     Route::get('test-types', 'index')->name('test.type.index');
 });
 Route::controller(ResultController::class)->group(function () {
+    Route::get('test-result/{result:id}', 'index')->name('result.index');
     Route::post('store-result', 'store')->name('result.store');
 });
 
