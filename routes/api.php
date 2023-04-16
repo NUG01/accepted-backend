@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\user\AuthController;
@@ -28,6 +29,9 @@ Route::controller(TestController::class)->group(function () {
 });
 Route::controller(TestTypeController::class)->group(function () {
     Route::get('test-types', 'index')->name('test.type.index');
+});
+Route::controller(ResultController::class)->group(function () {
+    Route::post('store-result', 'store')->name('result.store');
 });
 
 
