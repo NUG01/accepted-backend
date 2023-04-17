@@ -27,6 +27,7 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(TestController::class)->group(function () {
     Route::get('tests/{type:id}', 'index')->name('test.index');
     Route::get('user-tests/{id}', 'show')->name('test.show');
+    Route::get('user-tests/results/{id}', 'results')->name('test.results');
 });
 Route::controller(TestTypeController::class)->group(function () {
     Route::get('test-types', 'index')->name('test.type.index');
