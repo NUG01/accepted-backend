@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('test_type_id');
             $table->json('texts');
+            $table->string('image')->nullable();
             $table->integer('part');
             $table->timestamps();
         });

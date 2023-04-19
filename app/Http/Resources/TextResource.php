@@ -17,6 +17,7 @@ class TextResource extends JsonResource
         return [
             'texts' => $this->texts,
             'part' => $this->part,
+            'image' => $this->image,
         ];
     }
 }
