@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('Aaaa1111'),
             'role_id' => 2,
+            'image' => env('IMAGE_URL') . '/images/profile/basic-profile.jpeg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

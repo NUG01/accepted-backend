@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Laravolt\Facade\Avatar as Avatar;
 
 class AuthController extends Controller
 {
@@ -60,12 +61,16 @@ class AuthController extends Controller
 
         $enum = UserRoleEnum::from($request->role);
 
+
+
+
         $registeredUser = User::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' =>  $enum,
+            'image' =>  env('IMAGE_URL') . '/images/profile/basic-profile.jpeg',
             'verification_code' =>  sha1(time()),
         ]);
 

@@ -24,23 +24,27 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user', 'user')->middleware(['auth:sanctum'])->name('user');
 });
 
-Route::controller(TestController::class)->group(function () {
-    Route::get('tests/{type:id}', 'index')->name('test.index');
-    Route::get('user-tests/{id}', 'show')->name('test.show');
-    Route::get('user-tests/results/{id}', 'results')->name('test.results');
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(TestController::class)->group(function () {
+        Route::get('tests/{type:id}', 'index')->name('test.index');
+        Route::get('user-tests/{id}', 'show')->name('test.show');
+        Route::get('user-tests/results/{id}', 'results')->name('test.results');
+    });
+    Route::controller(TestTypeController::class)->group(function () {
+        Route::get('test-types', 'index')->name('test.type.index');
+    });
+    Route::controller(ResultController::class)->group(function () {
+        Route::get('test-result/{result:id}', 'index')->name('result.index');
+        Route::post('store-result', 'store')->name('result.store');
+    });
 });
-Route::controller(TestTypeController::class)->group(function () {
-    Route::get('test-types', 'index')->name('test.type.index');
-});
-Route::controller(ResultController::class)->group(function () {
-    Route::get('test-result/{result:id}', 'index')->name('result.index');
-    Route::post('store-result', 'store')->name('result.store');
-});
+
 
 
 Route::controller(AuthController::class)->group(function () {
     Route::middleware(['guest'])->group(function () {
-        Route::post('login', 'login')->name('user.login');
+        Route::post('login', 'login')->middleware('throttle:6')->name('user.login');
         Route::post('register', 'register')->name('user.register');
         Route::post('forgot-password', 'sendPasswordResetEmail')->name('user.forgot.password');
         Route::post('recover-password', 'recoverPassword')->name('user.recover.password');
