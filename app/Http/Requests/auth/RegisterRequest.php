@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\user;
+namespace App\Http\Requests\auth;
 
 use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;

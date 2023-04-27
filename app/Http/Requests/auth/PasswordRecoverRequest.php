@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\user;
+namespace App\Http\Requests\auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmailVerifyRequest extends FormRequest
+class PasswordRecoverRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class EmailVerifyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'exists:users,verification_code']
+            'token' => ['string', 'required', 'min:45', 'max:45'],
+            'password' => ['string', 'sometimes', 'min:8']
         ];
     }
 }

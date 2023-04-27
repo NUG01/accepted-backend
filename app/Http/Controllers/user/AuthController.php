@@ -6,16 +6,16 @@ use App\Enums\UserRoleEnum;
 use App\Events\UserPasswordForgot;
 use App\Events\UserRegistration;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\user\EmailVerifyRequest;
-use App\Http\Requests\user\LoginRequest;
-use App\Http\Requests\user\PasswordForgotRequest;
-use App\Http\Requests\user\PasswordRecoverRequest;
-use App\Http\Requests\user\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravolt\Facade\Avatar as Avatar;
+use App\Http\Requests\auth\EmailVerifyRequest;
+use App\Http\Requests\auth\LoginRequest;
+use App\Http\Requests\auth\PasswordForgotRequest;
+use App\Http\Requests\auth\PasswordRecoverRequest;
+use App\Http\Requests\auth\RegisterRequest;
 
 class AuthController extends Controller
 {

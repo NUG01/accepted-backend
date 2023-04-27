@@ -38,7 +38,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('test-result/{result:id}', 'index')->name('result.index');
         Route::post('store-result', 'store')->name('result.store');
     });
+    Route::controller(UserController::class)->group(function () {
+        Route::post('user/profile-update/{user}', 'edit')->name('user.edit');
+    });
 });
+
+
 
 
 

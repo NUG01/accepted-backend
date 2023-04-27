@@ -208,6 +208,10 @@ return [
             'min' => 'Token is invalid!',
             'max' => 'Token is invalid!',
         ],
+        'image' => [
+            'required' => 'Image is required!',
+            'image' => 'Image format is not acceptable!',
+        ]
     ],
 
 
