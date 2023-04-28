@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'image' => ['sometimes'],
             'name' => ['string', 'required', 'min:2', 'max:16'],
-            'surname' => ['string', 'required', 'min:2', 'max:16'],
+            'surname' => ['required', 'string', 'min:2', 'max:16'],
         ];
     }
 }
