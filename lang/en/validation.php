@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Validation\Rule;
+
 return [
 
     /*
@@ -187,6 +189,14 @@ return [
             'required_with' => 'It is necessary to repeat the password!',
             'same' => 'The password must match the repeated password!',
             'string' => 'The password field must consist of characters!',
+            'min' => 'The password must be at least 8 characters!',
+        ],
+        'current_password' => [
+            'required_with' => 'It is necessary to fill in the password field!',
+            'min' => 'The password must be at least 8 characters!',
+        ],
+        'new_password' => [
+            'required' => 'It is necessary to fill in the password field!',
             'min' => 'The password must be at least 8 characters!',
         ],
         'password_confirmation' => [

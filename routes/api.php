@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(UserController::class)->group(function () {
         Route::post('user/profile-update/{user}', 'edit')->name('user.edit');
+        Route::post('user/password-update', 'editPassword')->name('user.editPassword');
     });
 });
 

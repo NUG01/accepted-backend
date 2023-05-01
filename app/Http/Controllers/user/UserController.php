@@ -29,4 +29,18 @@ class UserController extends Controller
     ]);
     return response()->json([Auth::user()]);
   }
+
+  public function editPassword(Request $request)
+  {
+    $validatedData = $request->validate([
+      'current_password' => ['required', 'min:6', 'current_password:sanctum'],
+      'password_confirmation' => ['required', 'same:current_password'],
+      'new_password' => ['required', 'min:8'],
+    ]);
+
+    Auth::user()->update([
+      'password' => bcrypt($validatedData['new_password'])
+    ]);
+    return response()->noContent();
+  }
 }
