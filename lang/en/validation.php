@@ -221,7 +221,13 @@ return [
         'image' => [
             'required' => 'Image is required!',
             'image' => 'Image format is not acceptable!',
-        ]
+            'max' => 'max 6 images!',
+        ],
+        'question' => [
+            'required' => 'question is required',
+            'min' => 'min 10 symbols!',
+            'max' => 'max 300 symbols!',
+        ],
     ],
 
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::post('user/profile-update/{user}', 'edit')->name('user.edit');
         Route::post('user/password-update', 'editPassword')->name('user.editPassword');
+    });
+    Route::controller(PostController::class)->group(function () {
+        Route::post('add-post', 'store')->name('post.store');
     });
 });
 

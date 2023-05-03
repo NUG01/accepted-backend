@@ -8,6 +8,7 @@ use App\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,5 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return new Attribute(
             set: fn ($value) => strtolower($value)
         );
+    }
+
+
+    public function posts(): HasMany
+    {
+        return $this->HasMany(Post::class);
     }
 }
