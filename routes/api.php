@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('user/password-update', 'editPassword')->name('user.editPassword');
     });
     Route::controller(PostController::class)->group(function () {
+        Route::get('posts', 'index')->name('post.index');
         Route::post('add-post', 'store')->name('post.store');
     });
 });
