@@ -14,7 +14,7 @@ class PostController extends Controller
 
     public function index()
     {
-        return PostResource::collection(Post::latest()->get());
+        return PostResource::collection(Post::latest()->paginate(10));
     }
 
 
@@ -33,7 +33,15 @@ class PostController extends Controller
             };
         }
 
+        $data = [
+            'id' => $post->id,
+            'body' => $post->body,
+            'user' => Auth::user(),
+            'created_at' => $post->created_at,
+            'images' => $post->images
+        ];
 
-        return response()->json($post);
+
+        return response()->json($data);
     }
 }
