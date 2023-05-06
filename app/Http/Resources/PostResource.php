@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class PostResource extends JsonResource
 {
@@ -19,7 +20,8 @@ class PostResource extends JsonResource
             'user' => $this->user,
             'body' => $this->body,
             'created_at' => $this->created_at,
-            'images' => $this->images
+            'images' => $this->images,
+            'liked' => $this->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false'
         ];
     }
 }
