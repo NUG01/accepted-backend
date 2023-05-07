@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class PostResource extends JsonResource
             'body' => $this->body,
             'created_at' => $this->created_at,
             'images' => $this->images,
-            'liked' => $this->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false'
+            'liked' => $this->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false',
+            'users_who_liked' => User::whereIn('id', $this->likes->pluck('user_id'))->get(['surname', 'name', 'id', 'image'])
         ];
     }
 }
