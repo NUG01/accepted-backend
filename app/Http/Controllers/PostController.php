@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddPostRequest;
+use App\Http\Requests\CommentRequest;
 use App\Http\Resources\PostResource;
+use App\Models\Comment;
 use App\Models\Gallery;
 use App\Models\Like;
 use App\Models\Post;
@@ -26,7 +28,7 @@ class PostController extends Controller
     {
 
 
-        $current_time = Carbon::now(); // Get the current time using Carbon
+        $current_time = Carbon::now();
 
         $new_time = $current_time->addMinutes(40);
         $post =  Post::create([
@@ -77,5 +79,33 @@ class PostController extends Controller
 
         if ($likeIsPresent->first()) $likeIsPresent->delete();
         return response()->json('Unliked!');
+    }
+
+    public function comment(CommentRequest $request, $postId)
+    {
+
+        $comment = Comment::create([
+            'body' => $request->body,
+            'post_id' => $postId,
+            'user_id' => Auth::user()->id,
+            'parent_id' => $request->parent_id
+
+        ]);
+
+        $payload = [
+            'id' => $comment->id,
+            'body' => $comment->body,
+            'post_id' => $comment->post_id,
+            'author' => $comment->user->get(['name', 'surname', 'image', 'id']),
+            'replies' => Comment::where('parent_id',  $comment->id)->get()
+        ];
+
+        return response()->json($payload);
+    }
+
+    public function destroyComment(Comment $comment)
+    {
+        $comment->delete();
+        return response()->noContent();
     }
 }

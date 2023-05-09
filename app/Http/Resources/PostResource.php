@@ -22,8 +22,9 @@ class PostResource extends JsonResource
             'body' => $this->body,
             'created_at' => $this->created_at,
             'images' => $this->images,
+            'comments' => CommentResource::collection($this->comments),
             'liked' => $this->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false',
-            'users_who_liked' => User::whereIn('id', $this->likes->pluck('user_id'))->get(['surname', 'name', 'id', 'image'])
+            'users_who_liked' => User::whereIn('id', $this->likes->pluck('user_id'))->get(['surname', 'name', 'id', 'image']),
         ];
     }
 }
