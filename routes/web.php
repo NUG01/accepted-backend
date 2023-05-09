@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\NotificationReceived;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\Facades\Route;
 
 /*

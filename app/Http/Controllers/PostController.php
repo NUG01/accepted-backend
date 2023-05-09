@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotificationReceived;
 use App\Http\Requests\AddPostRequest;
 use App\Http\Requests\CommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Comment;
 use App\Models\Gallery;
 use App\Models\Like;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
@@ -28,14 +31,12 @@ class PostController extends Controller
     {
 
 
-        $current_time = Carbon::now();
 
-        $new_time = $current_time->addMinutes(40);
         $post =  Post::create([
             'user_id' => Auth::user()->id,
             'body' => $request->question,
-            'created_at' => $new_time,
-            'updated_at' => $new_time,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         if (request()->has('images')) {
@@ -49,10 +50,11 @@ class PostController extends Controller
             'id' => $post->id,
             'body' => $post->body,
             'user' => Auth::user(),
-            'created_at' => $new_time,
+            'created_at' => now(),
             'images' => $post->images,
-            'liked' => $post->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false',
-            'users_who_liked' => User::whereIn('id', $post->pluck('user_id'))->get(['surname', 'name'])
+            'comments' => CommentResource::collection($post->comments),
+            'liked' => 'false',
+            'users_who_liked' => []
         ];
 
 
@@ -73,6 +75,8 @@ class PostController extends Controller
                 'post_id' => $postId,
                 'user_id' => Auth::user()->id
             ]);
+            $this->createNotification(null, $postId, 'like');
+
 
             return response()->json('Liked!');
         }
@@ -88,9 +92,11 @@ class PostController extends Controller
             'body' => $request->body,
             'post_id' => $postId,
             'user_id' => Auth::user()->id,
-            'parent_id' => $request->parent_id
+            'parent_id' => $request->parent_id,
 
         ]);
+
+        $this->createNotification($request, $postId, 'comment');
 
         $payload = [
             'id' => $comment->id,
@@ -100,12 +106,36 @@ class PostController extends Controller
             'replies' => Comment::where('parent_id',  $comment->id)->get()
         ];
 
+
+
         return response()->json($payload);
     }
 
     public function destroyComment(Comment $comment)
     {
+        if ($comment->user_id != Auth::user()->id) return response()->json('Only author can delete it!');
         $comment->delete();
         return response()->noContent();
+    }
+
+    private static function currentTime()
+    {
+        $current_time = Carbon::now();
+
+        $new_time = $current_time->addMinutes(40);
+
+        return $new_time;
+    }
+    private static function createNotification($request, $postId, $type)
+    {
+        $notification = Notification::create([
+            'body' => $type == 'comment' ?  $request->body : null,
+            'post_id' => $postId,
+            'user_id' => Auth::user()->id,
+            'created_at' => now()
+
+        ]);
+
+        event(new NotificationReceived($notification));
     }
 }

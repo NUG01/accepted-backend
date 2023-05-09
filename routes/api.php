@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestTypeController;
@@ -49,6 +50,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('like-post/{postId}', 'like')->name('post.like');
         Route::post('comment/{postId}', 'comment')->name('post.comment');
         Route::delete('comment/{comment}', 'destroyComment')->name('post.comment.destroy');
+    });
+    Route::controller(NotificationController::class)->group(function () {
+        Route::get('notifications', 'index')->name('notification.index');
     });
 });
 
