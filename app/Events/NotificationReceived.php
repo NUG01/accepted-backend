@@ -13,13 +13,13 @@ use Illuminate\Queue\SerializesModels;
 class NotificationReceived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $notification;
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($notification)
     {
-        //
+        $this->notification = $notification;
     }
 
     /**

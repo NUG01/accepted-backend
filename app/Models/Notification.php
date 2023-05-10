@@ -22,4 +22,12 @@ class Notification extends Model
     {
         return $this->BelongsTo(Post::class);
     }
+    public function like(): BelongsTo
+    {
+        return $this->BelongsTo(Like::class);
+    }
+    public function comment(): BelongsTo
+    {
+        return $this->BelongsTo(Comment::class);
+    }
 }

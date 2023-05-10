@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Like extends Model
 {
@@ -22,5 +23,9 @@ class Like extends Model
     public function post(): BelongsTo
     {
         return $this->BelongsTo(Post::class);
+    }
+    public function notification(): HasOne
+    {
+        return $this->HasOne(Notification::class);
     }
 }

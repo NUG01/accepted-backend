@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravolt\Facade\Avatar as Avatar;
 use App\Http\Requests\auth\EmailVerifyRequest;
 use App\Http\Requests\auth\LoginRequest;
 use App\Http\Requests\auth\PasswordForgotRequest;

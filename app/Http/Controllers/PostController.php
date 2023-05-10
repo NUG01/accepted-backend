@@ -71,15 +71,17 @@ class PostController extends Controller
         ]);
 
         if (!$likeIsPresent->first()) {
-            Like::create([
+            $newLike = Like::create([
                 'post_id' => $postId,
                 'user_id' => Auth::user()->id
             ]);
-            $this->createNotification(null, $postId, 'like');
+            NotificationController::createNotification($postId, null, $newLike->id);
 
 
             return response()->json('Liked!');
         }
+
+        Notification::where('like_id', $likeIsPresent->first()->id)->delete();
 
         if ($likeIsPresent->first()) $likeIsPresent->delete();
         return response()->json('Unliked!');
@@ -96,7 +98,7 @@ class PostController extends Controller
 
         ]);
 
-        $this->createNotification($request, $postId, 'comment');
+        NotificationController::createNotification($postId, $comment->id, null);
 
         $payload = [
             'id' => $comment->id,
@@ -114,28 +116,8 @@ class PostController extends Controller
     public function destroyComment(Comment $comment)
     {
         if ($comment->user_id != Auth::user()->id) return response()->json('Only author can delete it!');
+        Notification::where('comment_id', $comment->id)->delete();
         $comment->delete();
         return response()->noContent();
-    }
-
-    private static function currentTime()
-    {
-        $current_time = Carbon::now();
-
-        $new_time = $current_time->addMinutes(40);
-
-        return $new_time;
-    }
-    private static function createNotification($request, $postId, $type)
-    {
-        $notification = Notification::create([
-            'body' => $type == 'comment' ?  $request->body : null,
-            'post_id' => $postId,
-            'user_id' => Auth::user()->id,
-            'created_at' => now()
-
-        ]);
-
-        event(new NotificationReceived($notification));
     }
 }
