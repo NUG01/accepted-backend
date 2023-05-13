@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(NotificationController::class)->group(function () {
         Route::get('notifications', 'index')->name('notification.index');
+        Route::get('read-notifications', 'readAllNotification')->name('notification.read');
     });
 });
 

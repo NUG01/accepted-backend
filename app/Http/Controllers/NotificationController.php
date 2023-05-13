@@ -32,4 +32,20 @@ class NotificationController extends Controller
 
         event(new NotificationReceived(['data' => $notification, 'author' => [User::find(Auth::user()->id, ['name', 'surname', 'image', 'id'])]]));
     }
+
+    public function readAllNotification()
+    {
+        $unreadIsPresent = Notification::where('seen', null)->first();
+        if (!$unreadIsPresent) return response()->noContent();
+        $notifications =  Notification::where('user_id', '!=', Auth::user()->id)
+            ->whereIn('post_id', Auth::user()->posts->pluck('id'))
+            ->latest()->get();
+
+        for ($i = 0; $i < count($notifications); $i++) {
+            $notifications[$i]->update(['seen' => 1]);
+        }
+
+
+        return response()->json(NotificationResource::collection($notifications));
+    }
 }
