@@ -29,6 +29,6 @@ class NotificationController extends Controller
             'created_at' => now()
         ]);
 
-        event(new NotificationReceived(['data' => $notification, 'author' => User::find(Auth::user()->id, ['name', 'surname', 'image'])]));
+        event(new NotificationReceived(['data' => $notification, 'author' => [User::find(Auth::user()->id, ['name', 'surname', 'image', 'id'])]]));
     }
 }

@@ -11,6 +11,8 @@
     },
     "dependencies": {
         "@headlessui/react": "^1.7.13",
-        "@heroicons/react": "^2.0.17"
+        "@heroicons/react": "^2.0.17",
+        "laravel-echo": "^1.15.1",
+        "pusher-js": "^8.0.2"
     }
 }

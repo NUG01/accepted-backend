@@ -8,6 +8,7 @@ use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
