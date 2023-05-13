@@ -26,6 +26,7 @@ class NotificationController extends Controller
             'like_id' => $like_id,
             'post_id' => $postId,
             'user_id' => Auth::user()->id,
+            'seen' => null,
             'created_at' => now()
         ]);
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('post_id');
             $table->foreignId('comment_id')->nullable();
             $table->foreignId('like_id')->nullable();
+            $table->integer('seen')->default(null)->nullable();
             $table->timestamps();
         });
     }

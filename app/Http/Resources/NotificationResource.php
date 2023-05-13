@@ -21,6 +21,7 @@ class NotificationResource extends JsonResource
             'like_id' => $this->like_id,
             'post_id' => $this->post_id,
             'created_at' => $this->created_at,
+            'seen' => $this->seen,
         ];
     }
 }
