@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Notification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -29,8 +30,10 @@ class NotificationReceived implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
+        $who = Notification::where('comment_id', $this->notification['data']['comment_id'])->orWhere('like_id', $this->notification['data']['like_id'])->first();
+
         return [
-            new PrivateChannel('notifications.' . $this->notification['data']['user_id']),
+            new PrivateChannel('notifications.' . $who->post->user->id),
         ];
     }
 }
