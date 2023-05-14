@@ -26,6 +26,23 @@ class PostController extends Controller
         // return PostResource::collection(Post::latest()->paginate(5));
     }
 
+    public function show(Post $post)
+    {
+        $data = [
+
+            'id' => $post->id,
+            'user' => $post->user,
+            'body' => $post->body,
+            'created_at' => $post->created_at,
+            'images' => $post->images,
+            'comments' => CommentResource::collection($post->comments),
+            'liked' => $post->likes->where('user_id', Auth::user()->id)->first() ? 'true' : 'false',
+            'users_who_liked' => User::whereIn('id', $post->likes->pluck('user_id'))->get(['surname', 'name', 'id', 'image']),
+        ];
+
+        return response()->json($data);
+    }
+
 
     public function store(AddPostRequest $request)
     {

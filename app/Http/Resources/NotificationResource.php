@@ -16,6 +16,7 @@ class NotificationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'author' => User::where('id',  $this->user_id)->get(['name', 'surname', 'image', 'id']),
             'comment_id' => $this->comment_id,
             'like_id' => $this->like_id,

@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(PostController::class)->group(function () {
         Route::get('posts', 'index')->name('post.index');
+        Route::get('review-post/{post}', 'show')->name('post.show');
         Route::post('add-post', 'store')->name('post.store');
         Route::post('like-post/{postId}', 'like')->name('post.like');
         Route::post('comment/{postId}', 'comment')->name('post.comment');
@@ -54,7 +55,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(NotificationController::class)->group(function () {
         Route::get('notifications', 'index')->name('notification.index');
-        Route::get('read-notifications', 'readAllNotification')->name('notification.read');
+        Route::get('read-notifications', 'readAllNotification')->name('notification.read.all');
+        Route::get('read-notification/{notification}', 'readSingleNotification')->name('notification.read');
     });
 });
 
