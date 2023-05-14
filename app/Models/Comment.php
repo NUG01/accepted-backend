@@ -19,6 +19,10 @@ class Comment extends Model
     {
         return $this->BelongsTo(User::class);
     }
+    public function post(): BelongsTo
+    {
+        return $this->BelongsTo(Post::class);
+    }
     public function notification(): HasOne
     {
         return $this->HasOne(Notification::class);

@@ -104,7 +104,7 @@ class PostController extends Controller
             'id' => $comment->id,
             'body' => $comment->body,
             'post_id' => $comment->post_id,
-            'author' => $comment->user->get(['name', 'surname', 'image', 'id']),
+            'author' => User::where('id', Auth::user()->id)->get(['name', 'surname', 'image', 'id']),
             'replies' => Comment::where('parent_id',  $comment->id)->get()
         ];
 
