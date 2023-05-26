@@ -18,5 +18,10 @@ class TestTypeSeeder extends Seeder
             'year' => 2020,
             'version' => 1,
         ]);
+        DB::table('test_types')->insert([
+            'name' => 'general',
+            'year' => 2021,
+            'version' => 1,
+        ]);
     }
 }

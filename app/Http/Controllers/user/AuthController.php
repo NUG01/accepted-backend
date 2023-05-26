@@ -69,7 +69,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' =>  $enum,
-            'image' =>  env('IMAGE_URL') . '/images/profile/basic-profile.jpeg',
+            'image' =>  env('IMAGE_URL') . '/images/angry-bird.jpg',
             'verification_code' =>  sha1(time()),
         ]);
 

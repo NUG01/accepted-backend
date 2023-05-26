@@ -29,7 +29,7 @@ class PasswordResetEmail extends Mailable
         return $this->from(env('MAIL_USERNAME'), env('MAIL_NAME'))
             ->subject('Recover your password.')
             ->view(
-                'mail.VerificationEmail',
+                'mail.PasswordResetEmail',
                 [
                     'name' => $payload['name'],
                     'email' => $payload['email'],

@@ -187,7 +187,7 @@
         }
 
         body {
-            background-color: #f2eee6;
+          background-color: #f2eee6;
             color: #2e313d;
         }
     </style>
@@ -242,12 +242,12 @@
                                                                         ჰეი {{ $name }}!</p>
                                                                     <p
                                                                         style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#ffffff;">
-                                                                        მადლობა რომ შემოუერდი ჩაჭრილებს. დააწკაპუნე ვერიფიკაციის ღილაკს რომ გაგიაქტიურდეს პროფილი:</p>
+                                                                        პაროლი თუ დაგავიწყდა შენ უნივერსიტეტში რა გინდა</p>
                                                                     <a href={{ $url }}
                                                                         target="_blank" class="f-fallback button"
                                                                         style="position:relative;padding:13px 7px; font-size:16px;font-weight:400;font-family:Sans-serif; color: #FFF; border:none; background-color: #397e7e !important; display: text-align:center; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">
                                                                         <span class="ninjaButton"
-                                                                            style="font-family:'Inter',sans-serif;">ვერიფიკაცია</span></a>
+                                                                            style="font-family:'Inter',sans-serif;">პაროლის აღდგენა</span></a>
                                                                     <p
                                                                         style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#ffffff;">
                                                                         თუ ღილაკი რაიმე მიზეზის გამო გაშეშდა და არ რეაგირებს, დააკოპიპეისტე შემდეგი ლინკი ბრაუზერში:</p>
