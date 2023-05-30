@@ -127,7 +127,7 @@ class TextSeeder extends Seeder
             'part' => 3,
         ]);
         DB::table('texts')->insert([
-            'test_type_id' => TestType::find(2)->value('id'),
+            'test_type_id' => 2,
             'texts' => json_encode(
                 [
                     'I' => 'XVI-XVII საუკუნეების ვენეციის რესპუბლიკაში პოლიტიკური და სოციალური სტაბილურობა სუფევდა. თვით
@@ -175,7 +175,7 @@ class TextSeeder extends Seeder
             'part' => 1,
         ]);
         DB::table('texts')->insert([
-            'test_type_id' => TestType::find(2)->value('id'),
+            'test_type_id' => 2,
             'texts' => json_encode(
                 [
                     'I' => '1861 წელს, ჩარლზ დარვინის „სახეობათა წარმოშობის“ გამოცემიდან ორი წლის შემდეგ, გერმანიაში ყვავის ზომის
@@ -221,7 +221,7 @@ class TextSeeder extends Seeder
             'part' => 2,
         ]);
         DB::table('texts')->insert([
-            'test_type_id' => TestType::find(2)->value('id'),
+            'test_type_id' => 2,
             'image' => env('IMAGE_URL') . '/images/general-version-2-data-1.png',
 
             'texts' => json_encode(
