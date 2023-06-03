@@ -22,8 +22,8 @@ class PostController extends Controller
 
     public function index()
     {
-        return PostResource::collection(Post::latest()->get());
-        // return PostResource::collection(Post::latest()->paginate(5));
+        // return PostResource::collection(Post::latest()->get());
+        return PostResource::collection(Post::latest()->paginate(4));
     }
 
     public function show(Post $post)
@@ -58,7 +58,7 @@ class PostController extends Controller
 
         if (request()->has('images')) {
             for ($i = 0; $i < count(request()->file('images')); $i++) {
-                $currentImage = request()->file('images')[$i]->store('gallery');
+                $currentImage = request()->file('images')[$i]->store('thumbnails');
                 Gallery::create(['image' => $currentImage, 'post_id' => $post->id]);
             };
         }
