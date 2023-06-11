@@ -7,6 +7,9 @@ use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
+use App\Models\TestType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +28,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UserController::class)->group(function () {
     Route::get('user', 'user')->middleware(['auth:sanctum'])->name('user');
+});
+
+
+Route::get('quantities', function () {
+    $posts = Post::all()->count();
+    $tests = TestType::all()->count();
+    $users = User::all()->count();
+    $data = [
+        'posts_count' => $posts,
+        'tests_count' => $tests,
+        'users_count' => $users,
+    ];
+
+    return response()->json($data);
 });
 
 
