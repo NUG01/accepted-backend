@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\TestType;
 use App\Models\User;
+use App\Services\GeneralServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -29,21 +30,6 @@ use Illuminate\Support\Facades\Route;
 Route::controller(UserController::class)->group(function () {
     Route::get('user', 'user')->middleware(['auth:sanctum'])->name('user');
 });
-
-
-Route::get('quantities', function () {
-    $posts = Post::all()->count();
-    $tests = TestType::all()->count();
-    $users = User::all()->count();
-    $data = [
-        'posts_count' => $posts,
-        'tests_count' => $tests,
-        'users_count' => $users,
-    ];
-
-    return response()->json($data);
-});
-
 
 Route::middleware(['auth'])->group(function () {
     Route::controller(TestController::class)->group(function () {
@@ -77,10 +63,6 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-
-
-
-
 Route::controller(AuthController::class)->group(function () {
     Route::middleware(['guest'])->group(function () {
         Route::post('login', 'login')->middleware('throttle:6')->name('user.login');
@@ -91,4 +73,9 @@ Route::controller(AuthController::class)->group(function () {
     });
     Route::post('logout', 'logout')->middleware('auth')->name('user.logout');
     Route::post('email/verify', 'verifyEmail')->middleware(['guest', 'not.verified'])->name('user.verify');
+});
+
+
+Route::get('quantities', function (GeneralServices $generalServices) {
+    return response()->json($generalServices->aboutPageQuantities());
 });
