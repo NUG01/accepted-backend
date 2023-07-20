@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             TestTypeSeeder::class,
             TestSeeder::class,
             TestTwoSeeder::class,
+            TestThreeSeeder::class,
             TextSeeder::class,
         ]);
 
