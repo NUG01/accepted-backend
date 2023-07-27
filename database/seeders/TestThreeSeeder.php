@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class TestTwoSeeder extends Seeder
+class TestThreeSeeder extends Seeder
 {
   /**
    * Run the database seeds.

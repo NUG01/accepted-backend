@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             TextSeeder::class,
         ]);
 
-        \App\Models\User::factory()->create([
+        \App\Models\User::create([
             'name' => 'ნუგო',
             'surname' => 'სხირელი',
             'email' => 'nskhiereli@gmail.com',
